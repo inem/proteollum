@@ -1,0 +1,9 @@
+---
+- - User Name
+  - user@example.com
+  - e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4 # secret
+  - true
+- - Another User
+  - another@example.com
+  - b4341ce88a4943631b9573d9e0e5b28991de945d # p455w0rd
+  - true
