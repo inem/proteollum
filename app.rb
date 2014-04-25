@@ -4,8 +4,10 @@ require 'digest/sha1'
 class App < Precious::App
   User = Struct.new(:name, :email, :password_hash, :can_write)
 
-  before { authenticate! }
-  before /^\/(edit|create|delete|livepreview|revert)/ do authorize_write! ; end
+  before /^\/(edit|create|delete|livepreview|revert)/ do
+    authenticate!
+    authorize_write!
+  end
 
   helpers do
     def authenticate!
