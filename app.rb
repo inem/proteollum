@@ -4,7 +4,7 @@ require 'digest/sha1'
 class App < Precious::App
   User = Struct.new(:name, :email, :password_hash, :can_write)
 
-  before /^\/(edit|create|delete|livepreview|revert)/ do
+  before /^\/(edit|create|delete|livepreview|revert|rename)/ do
     authenticate!
     authorize_write!
   end
@@ -18,7 +18,7 @@ class App < Precious::App
         @user = detected_user(@_auth.credentials)
         return @user
       else
-        response['WWW-Authenticate'] = %(Basic realm="Gollum Wiki")
+        response['WWW-Authenticate'] = %(Basic realm="Proteollum Wiki")
         throw(:halt, [401, "Not authorized\n"])
       end
     end
