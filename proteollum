@@ -28,10 +28,12 @@ d_start() {
   start-stop-daemon \
     --start \
     --chdir $app_root \
+    --pidfile $PIDFILE \
     --background \
     --chuid $user \
     --exec \
-    /usr/local/bin/rackup -p 4567 config.ru
+    /usr/local/bin/rackup -- \
+    --host 127.0.0.1 --port 4567 --pid $PIDFILE config.ru
 }
 
 d_stop() {

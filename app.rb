@@ -1,8 +1,6 @@
 require 'gollum/frontend/app'
 require 'digest/sha1'
 
-open("/var/tmp/proteollum.pid", "w"){ |f| f.write($$) }
-
 class App < Precious::App
   User = Struct.new(:name, :email, :password_hash, :can_write)
 
