@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# start-stop script for proteollum:
+
+set -e
+# now we're in app root
+app_root=/var/www/wiki
+# user == owner of 'wiki-dir'
+user=`stat -c %U $app_root`
+export PIDFILE=/var/run/proteollum.pid
+
+d_status() {
+  if [ -f $PIDFILE ]
+  then
+    RPID=`cat $PIDFILE`
+    if [ -d /proc/"$RPID" ]
+    then
+      echo "Proteollum is running, pid: $RPID"
+    else
+      echo "Proteollum$num is NOT running"
+    fi
+  else
+    echo "Proteollum$num: pidfile missing"
+  fi
+}
+
+d_start() {
+  start-stop-daemon \
+    --start \
+    --chdir $app_root \
+    --background \
+    --chuid $user \
+    --pidfile $PIDFILE \
+    --exec \
+    rackup -p 4567 config.ru
+}
+
+d_stop() {
+  # we have proteollum's parent pid, use it:
+  start-stop-daemon \
+    --stop \
+    --signal 2 \
+    --pidfile $PIDFILE
+  rm -f $PIDFILE
+}
+
+case "$1" in
+  start)
+    echo -n "Starting proteollum"
+    d_start
+    echo "."
+    ;;
+  status)
+    d_status
+    ;;
+  stop)
+    echo -n "Stopping proteollum"
+    d_stop
+    echo "."
+    ;;
+  restart|force-reload)
+    echo -n "Restarting proteollum"
+    d_stop
+    sleep 3
+    d_start
+    echo "."
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|force-reload|status}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0
