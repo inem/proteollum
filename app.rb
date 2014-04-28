@@ -1,4 +1,4 @@
-require 'gollum/app'
+require 'gollum/frontend/app'
 require 'digest/sha1'
 
 class App < Precious::App
