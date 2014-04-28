@@ -30,7 +30,6 @@ d_start() {
     --chdir $app_root \
     --background \
     --chuid $user \
-    --pidfile $PIDFILE \
     --exec \
     /usr/local/bin/rackup -p 4567 config.ru
 }
