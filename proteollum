@@ -32,7 +32,7 @@ d_start() {
     --chuid $user \
     --pidfile $PIDFILE \
     --exec \
-    rackup -p 4567 config.ru
+    /usr/local/bin/rackup -p 4567 config.ru
 }
 
 d_stop() {
