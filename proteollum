@@ -7,7 +7,7 @@ set -e
 app_root=/var/www/wiki
 # user == owner of 'wiki-dir'
 user=`stat -c %U $app_root`
-export PIDFILE=/var/run/proteollum.pid
+export PIDFILE=/var/tmp/proteollum.pid
 
 d_status() {
   if [ -f $PIDFILE ]
